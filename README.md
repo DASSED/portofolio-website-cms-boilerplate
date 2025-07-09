@@ -1,262 +1,159 @@
 # Portfolio CMS Boilerplate
-A production-ready, full-stack portfolio website boilerplate built with modern technologies and enterprise-grade tooling. This monorepo provides a scalable foundation for building content-managed portfolio sites with robust authentication, seamless content editing, and bulletproof deployment workflows.
-## 🚀 Tech Stack
-### Frontend
 
-- Next.js 15 - React framework with App Router and Server Components
-- TypeScript - Type-safe development with strict configuration
-- Tailwind CSS v4 - Utility-first styling with latest features
-- Shadcn/ui - High-quality, accessible component library
-- Better Auth - Modern authentication with flexible providers
+A **scalable, full-stack monorepo** boilerplate for building content-managed portfolio websites with modern tooling, atomic design, and developer-first workflows.
 
-### Backend & Database
+## 🚀 Tech Stack \& Architecture
 
-- Payload CMS - Headless CMS with admin panel
-- PostgreSQL - Robust relational database
-- Drizzle ORM - Type-safe database operations
+- **Monorepo powered by Turborepo** for fast incremental builds, caching, and task orchestration
+- **Next.js 15** with App Router and **Atomic Design** pattern for frontend
+- **TypeScript** everywhere for type safety and shared contracts
+- **Tailwind CSS v4** + **Shadcn/ui** for accessible, composable UI components
+- **Payload CMS** as headless CMS backend
+- **PostgreSQL** with **Drizzle ORM** for type-safe database access
+- **Arktype** for runtime validation of API contracts
+- **Testing with Vitest \& Playwright** following TDD principles
+- **Optional Better Auth** for flexible authentication providers (OAuth, email/password, magic links)
 
-### Architecture & Structure
 
-- Atomic Design Pattern - Scalable component organization
-- Monorepo Structure - Organized codebase with clear separation
-- T3 Env - Environment variable validation
-- Arktype - Runtime type validation
+## 📁 Monorepo Structure
 
-## 🛠️ Developer Experience
-### Code Quality & Standards
-
-- ESLint - Comprehensive linting rules
-- Prettier - Consistent code formatting
-- Commitlint & Commitizen - Standardized commit messages
-- Cspell - Spell checking for code and docs
-- MarkdownLint - Documentation consistency
-
-- Testing & Quality Assurance
-
-- Playwright - End-to-end testing framework
-- Vitest - Fast unit and component testing
-- Total TypeScript Reset - Enhanced TypeScript defaults
-- Strict TypeScript - Maximum type safety
-
-### Deployment & Monitoring
-
-- GitHub Actions - CI/CD automation
-- Changesets - Version management and changelog generation
-- Sentry - Error tracking and performance monitoring
-- Lefthook - Git hooks for pre-commit and commit-msg validation
-
-## Project Structure
 ```
 portfolio-cms/
 ├── apps/
-│   ├── web/              # Next.js frontend
-│   │   ├── src/
-│   │   │   ├── assets/         # Static assets (images, fonts)
-│   │   │   │   ├── fonts/
-│   │   │   │   └── images/
-│   │   │   │
-│   │   │   ├── components/     # UI Components (Atomic Design)
-│   │   │   │   ├── atoms/      # Smallest reusable components
-│   │   │   │   ├── molecules/  # Grouped atoms forming functional components
-│   │   │   │   ├── organisms/  # Complex UI structures combining molecules
-│   │   │   │   └── templates/  # Page layouts (AuthLayout, DashboardLayout)
-│   │   │   │
-│   │   │   ├── lib/            # Business logic and utilities
-│   │   │   │   ├── constants/  # Global constants
-│   │   │   │   ├── helpers/    # Utility functions
-│   │   │   │   ├── hooks/      # Custom reusable hooks
-│   │   │   │   ├── store/      # State management (Zustand)
-│   │   │   │   └── types/      # Shared TypeScript types and interfaces
-│   │   │   │
-│   │   │   ├── pages/          # Page components (LoginPage, DashboardPage)
-│   │   │   │   └── App.tsx     # Main app entry point
-│   │   │   │
-│   │   │   ├── routes/         # Centralized app routing
-│   │   │   │   └── routes.tsx
-│   │   │   │
-│   │   │   ├── services/       # API services (fetching data)
-│   │   │   │   └── products/   # Product API services
-│   │   │   │       ├── queries.ts    # React Query fetching
-│   │   │   │       ├── keys.ts       # Query keys
-│   │   │   │       ├── mutations.ts  # React Query mutations
-│   │   │   │       └── api.ts        # API functions
-│   │   │   │
-│   │   │   ├── styles/         # Global styles (Tailwind v4, etc.)
-│   │   │   │   └── globals.css
-│   │   │   │
-│   │   │   └── index.tsx       # React root file
-│   │   │
-│   │   ├── .env.local          # Environment variables
-│   │   ├── .gitignore
-│   │   └── package.json
-│   │
-│   └── cms/              # Payload CMS backend
+│   ├── web/              # Next.js frontend app (Atomic Design)
+│   ├── cms/              # Payload CMS backend
 ├── packages/
-│   ├── ui/               # Shared component library
-│   ├── config/           # Shared configurations
-│   └── database/         # Database schemas and migrations
+│   ├── ui/               # Shared component library (shadcn/ui based)
+│   ├── config/           # Shared configs & env validation
+│   ├── db/               # Database schema, migrations, and types
+│   ├── auth/             # Authentication logic (Better Auth integration optional)
+│   └── utils/            # Shared utilities and helpers
+├── tooling/              # Linting, formatting, testing configs
 ├── .github/
-│   └── workflows/        # GitHub Actions
-└── tooling/
-    ├── eslint/
-    ├── prettier/
-    └── typescript/
+│   └── workflows/        # CI/CD pipeline definitions
+├── turbo.json            # Turborepo config
+├── package.json
+└── tsconfig.json
 ```
-## 🎯 Key Features
-### Content Management
 
-- Visual Editor - WYSIWYG editing with live preview
-- Media Management - Image optimization and CDN integration
-- SEO Optimization - Meta tags, structured data, and sitemap generation
-- Multi-language Support - Internationalization ready
 
-### Authentication & Security
+## 🧱 Frontend: Atomic Design Pattern
 
-- Multiple Auth Providers - OAuth, email/password, and magic links
-- Role-based Access - Admin, editor, and viewer permissions
-- Session Management - Secure token handling
-- Rate Limiting - API protection and abuse prevention
+The `apps/web` directory follows atomic design principles:
 
-### Performance & Scalability
+```
+apps/web/src/
+├── components/
+│   ├── atoms/            # Smallest reusable UI elements (buttons, inputs)
+│   ├── molecules/        # Composed groups of atoms (form fields, nav items)
+│   ├── organisms/        # Complex UI sections (headers, footers, content blocks)
+│   └── templates/        # Page layouts (dashboard, auth pages)
+├── hooks/                # Custom React hooks
+├── lib/                  # Business logic and API clients
+├── pages/                # Next.js page routes (if using pages router)
+├── styles/               # Tailwind CSS globals and overrides
+└── types/                # Shared TypeScript types/interfaces
+```
 
-- Server-Side Rendering - Optimal SEO and performance
-- Static Generation - Pre-built pages for lightning speed
-- Image Optimization - Automatic resizing and format conversion
-- Database Migrations - Version-controlled schema changes
 
-##🚦 Getting Started
+## 🧪 Testing Strategy (TDD)
+
+- **Unit Tests:** Vitest for components, hooks, and utilities
+- **Integration Tests:** API routes and database interactions
+- **End-to-End Tests:** Playwright for realistic user flows
+- Tests live close to the code they cover within each package/app
+- Run tests incrementally with Turborepo for fast feedback
+
+
+## 🔐 Authentication (Optional)
+
+- Integrate **Better Auth** in `packages/auth` for modern, extensible authentication
+- Supports OAuth providers, email/password, magic links
+- Role-based access control configurable
+- Easily plugged into frontend and backend apps
+
+
+## ⚙️ CI/CD Workflow
+
+The `.github/workflows/ci.yml` pipeline includes:
+
+1. **Install \& Build:**
+    - Install dependencies with caching
+    - Run `turbo run build` for incremental builds
+2. **Lint \& Format:**
+    - Run ESLint and Prettier checks
+3. **Test:**
+    - Run unit and integration tests with Vitest
+    - Run E2E tests with Playwright
+4. **Deploy:**
+    - On successful tests, build Docker image for `apps/web` and `apps/cms`
+    - Deploy to your cloud provider (e.g., Vercel, AWS ECS)
+    - Use zero-downtime deployment strategies
+5. **Monitoring:**
+    - Integrate Sentry or equivalent for error and performance monitoring
+
+## 🚦 Getting Started
+
 ### Prerequisites
 
 - Node.js 18+
 - PostgreSQL 14+
 - Git
 
-### Installation
-```bash#
-Clone the repository
+
+### Development Setup
+
+```bash
 git clone https://github.com/yourusername/portfolio-cms-boilerplate.git
 cd portfolio-cms-boilerplate
 
-# Install dependencies
 npm install
 
-# Set up environment variables
+# Setup environment variables
 cp .env.example .env.local
 # Edit .env.local with your configuration
 
-# Set up database
+# Setup database schema and seed data
 npm run db:push
 npm run db:seed
 
-# Start development servers
+# Start full dev environment (frontend + CMS)
 npm run dev
 ```
-### Environment Variables
-```
-env# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/portfolio_cms"
 
-# Authentication
-BETTER_AUTH_SECRET="your-auth-secret"
-GITHUB_CLIENT_ID="your-github-client-id"
-GITHUB_CLIENT_SECRET="your-github-client-secret"
 
-# Payload CMS
-PAYLOAD_SECRET="your-payload-secret"
+## 🛠️ Available Scripts
 
-# Sentry
-SENTRY_DSN="your-sentry-dsn"
+- `npm run dev` — Start frontend and CMS with hot reload
+- `npm run build` — Build all apps and packages incrementally
+- `npm run lint` — Run ESLint across the monorepo
+- `npm run format` — Format codebase with Prettier
+- `npm run test` — Run unit and integration tests
+- `npm run test:e2e` — Run end-to-end tests with Playwright
+- `npm run db:push` — Apply DB schema migrations
+- `npm run db:seed` — Seed database with sample data
 
-# Email (Optional)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT=587
-SMTP_USER="your-email@gmail.com"
-SMTP_PASS="your-app-password"
-```
-
-## 📝 Usage
-### Development
-
-```bash
-npm run dev          # Start all development servers
-npm run dev:web      # Start frontend only
-npm run dev:cms      # Start CMS only
-npm run build        # Build for production
-npm run test         # Run all tests
-npm run test:e2e     # Run E2E tests
-npm run lint         # Lint codebase
-npm run format       # Format code
-Database Operations
-bashnpm run db:push      # Push schema changes
-npm run db:studio    # Open database studio
-npm run db:seed      # Seed with sample data
-npm run db:reset     # Reset database
-```
-### Deployment
-
-```bash
-npm run changeset    # Create changeset for release
-npm run release      # Release new version
-npm run deploy       # Deploy to production
-```
- ## 🧪 Testing Strategy
-
-- Unit Tests - Component and utility function testing
-- Integration Tests - API and database interaction testing
-- E2E Tests - Full user journey testing
-- Visual Regression - Component visual consistency
-- Performance Tests - Load time and Core Web Vitals
-
-## 📊 Monitoring & Analytics
-
-- Error Tracking - Sentry integration for bug reporting
-- Performance Monitoring - Real User Monitoring (RUM)
-- Analytics - Built-in page view and user interaction tracking
-- Uptime Monitoring - Health checks and status page
 
 ## 🔧 Customization
-### Theming
 
-- Modify tailwind.config.js for design system
-- Update src/styles/globals.css for global styles
-- Customize Shadcn/ui components in components/ui/
+- Extend or customize UI components in `packages/ui`
+- Add new content types in `apps/cms/collections`
+- Modify Tailwind config and global styles in `apps/web/styles`
+- Configure authentication providers and roles in `packages/auth`
 
-### Content Types
 
-- Add new collections in cms/collections/
-- Define TypeScript types in packages/database/types/
-- Create corresponding frontend components
+## 📚 Documentation \& Contribution
 
-### Authentication
+- Architecture overview and API references in `/docs` (can be a dedicated app)
+- Follow TDD and code quality standards
+- Submit PRs with clear commit messages and tests
 
-- Configure providers in lib/auth/config.ts
-- Add custom authentication logic in lib/auth/
-- Update user roles and permissions
 
-## 📚 Documentation
-
-### Architecture Overview
-- Component Library
-- API Reference
-- Deployment Guide
-- Contributing Guidelines
-
-## 🤝 Contributing
-We welcome contributions! Please see our Contributing Guide for details on:
-
-- Code of conduct
-- Development workflow
-- Pull request process
-- Issue reporting
-
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
 ## 🙏 Acknowledgments
 
-- Next.js team for the amazing framework
-- Payload CMS for the powerful headless CMS
-- Vercel for deployment platform
-- Open source community for the incredible tools
+Inspired by the [turborepo-shadcn-ui-tailwindcss](https://github.com/henriqpohl/turborepo-shadcn-ui-tailwindcss) repo and Graphite.dev monorepo principles emphasizing:
 
-
-Ready to build your next portfolio? Star this repo and get started in minutes! 🌟
+- **Incremental builds \& tests** for fast feedback
+- **Atomic design** for scalable UI
+- **Unified TypeScript codebase** for consistency
+- **Single deployment artifact per app** for operational simplicity
