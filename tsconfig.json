@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["packages/ui/src/*"],
+      "@config/*": ["packages/config/src/*"],
+      "@db/*": ["packages/db/src/*"],
+      "@utils/*": ["packages/utils/src/*"],
+      "@auth/*": ["packages/auth/src/*"],
+      "@payload-config": ["./apps/cms/payload.config.ts"]
+    }
+  }
+}
